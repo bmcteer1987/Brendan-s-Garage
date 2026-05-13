@@ -1497,15 +1497,19 @@ function resetReceiptUI() {
 function openReceipt(recordId) {
   const r = records.find(x => x.id === recordId);
   if (!r || !r.receipt) return;
-  const win = window.open('', '_blank');
-  if (r.receiptType && r.receiptType.startsWith('image/')) {
-    win.document.write('<html><body style="margin:0;background:#111;">'
-      + '<img src="' + r.receipt + '" style="max-width:100%;display:block;margin:0 auto;" /></body></html>');
-  } else {
-    // PDF — embed in iframe
-    win.document.write('<html><body style="margin:0;">'
-      + '<iframe src="' + r.receipt + '" style="width:100vw;height:100vh;border:none;"></iframe></body></html>');
-  }
+  window.open(r.receipt, '_blank');
+}
+
+function downloadReceipt(recordId) {
+  const r = records.find(x => x.id === recordId);
+  if (!r || !r.receipt) return;
+  const a = document.createElement('a');
+  a.href = r.receipt;
+  a.download = r.receiptName || 'receipt';
+  a.target = '_blank'; // fallback for cross-origin
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 function saveEntry() {
@@ -1643,11 +1647,16 @@ function renderRecords() {
       </div>
       ${r.notes ? `<div class="record-notes">${r.notes}</div>` : ''}
       ${r.receipt ? `
-        <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;">
+        <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;display:flex;gap:6px;">
           <button onclick="openReceipt(${r.id})" style="display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid var(--border);border-radius:var(--radius);padding:5px 12px;font-family:var(--font-body);font-size:12px;color:var(--text2);cursor:pointer;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--bmw-blue)';this.style.color='var(--bmw-blue)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            ${r.receiptName || 'View receipt'}
+            View
           </button>
+          <button onclick="downloadReceipt(${r.id})" style="display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid var(--border);border-radius:var(--radius);padding:5px 12px;font-family:var(--font-body);font-size:12px;color:var(--text2);cursor:pointer;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </button>
+          <span style="font-size:11px;color:var(--text3);align-self:center;">${r.receiptName || ''}</span>
         </div>` : ''}
     </div>
   `).join('');
