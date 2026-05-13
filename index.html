@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brendan's Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #080a0e;
+    --surface: #0f1219;
+    --surface2: #161b24;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --text: #efefef;
+    --text2: #7a8399;
+    --text3: #3d4455;
+    --blue: #3a7bd5;
+    --blue-dim: rgba(58,123,213,0.15);
+    --blue-glow: rgba(58,123,213,0.35);
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* Subtle grid */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(58,123,213,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(58,123,213,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 64px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--blue);
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 88px);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  h1 span {
+    color: var(--text3);
+  }
+
+  .tagline {
+    font-size: 14px;
+    color: var(--text2);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* Project grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 900px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  /* Project card */
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px 32px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, var(--blue-dim), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+
+  .card:hover {
+    border-color: rgba(58,123,213,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(58,123,213,0.15);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-tag::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 10px;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+
+  .card:hover .card-title { color: #fff; }
+
+  .card-desc {
+    font-size: 13.5px;
+    color: var(--text2);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .card-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .chip {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text3);
+    letter-spacing: 0.02em;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue);
+    letter-spacing: 0.02em;
+    transition: gap 0.2s;
+  }
+
+  .card:hover .card-link { gap: 12px; }
+
+  .card-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* BMW roundel decoration in card */
+  .card-badge {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    opacity: 0.06;
+    transition: opacity 0.3s;
+  }
+  .card:hover .card-badge { opacity: 0.12; }
+  .card-badge svg { width: 64px; height: 64px; }
+
+  /* Footer */
+  .footer {
+    margin-top: 64px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+    animation: fadeUp 0.8s 0.3s ease both;
+    letter-spacing: 0.03em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+    h1 { font-size: 52px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="eyebrow">Brendan's Projects</div>
+    <h1>TOOLS<br><span>&amp;</span> TRACKERS</h1>
+    <p class="tagline">Personal tools built with Claude</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- M240i Garage -->
+    <a href="m240i-garage-final.html" class="card">
+      <div class="card-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="none" stroke="#fff" stroke-width="3"/>
+          <circle cx="50" cy="50" r="31" fill="none" stroke="#fff" stroke-width="2"/>
+          <line x1="50" y1="19" x2="50" y2="81" stroke="#fff" stroke-width="2"/>
+          <line x1="19" y1="50" x2="81" y2="50" stroke="#fff" stroke-width="2"/>
+          <path d="M50,19 A31,31 0 0,0 19,50 L50,50 Z" fill="#fff"/>
+          <path d="M50,81 A31,31 0 0,0 81,50 L50,50 Z" fill="#fff"/>
+        </svg>
+      </div>
+
+      <div class="card-tag">Automotive</div>
+      <div class="card-title">M240i Garage</div>
+      <p class="card-desc">Mechanic finder, Lubrico warranty guide, mileage tracker with projection, maintenance forecasting, and AI diagnostics for the 2017 BMW M240i RWD Manual.</p>
+
+      <div class="card-features">
+        <span class="chip">Mileage tracking</span>
+        <span class="chip">Maintenance forecast</span>
+        <span class="chip">Lubrico guide</span>
+        <span class="chip">AI diagnostics</span>
+        <span class="chip">Service history</span>
+        <span class="chip">Roncesvalles shops</span>
+      </div>
+
+      <div class="card-footer">
+        <span class="card-link">
+          Open garage
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+        <span style="font-size:11px;color:var(--text3);">2017 · RWD · Manual</span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer class="footer">
+    Roncesvalles, Toronto &nbsp;·&nbsp; Built with Claude
+  </footer>
+
+</div>
+</body>
+</html>
