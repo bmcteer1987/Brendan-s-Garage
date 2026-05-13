@@ -44,47 +44,26 @@
     line-height: 1.6;
   }
 
-  /* subtle grid bg */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(74,144,226,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74,144,226,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
+
 
   .app-wrap {
-    position: relative;
-    z-index: 1;
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 24px 60px;
   }
-  .app-body {
-    display: flex;
-    gap: 0;
-    align-items: flex-start;
-    min-height: 600px;
-  }
+  
 
   /* HEADER */
   header {
     border-bottom: 1px solid var(--border);
-    margin-bottom: 32px;
-    background: #000;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    padding: 28px 28px 24px;
+    margin-bottom: 24px;
+    padding: 24px 0 20px;
   }
   .header-top {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
   .header-logo {
     width: 52px;
@@ -128,63 +107,55 @@
   .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.3); }
 
   /* SIDEBAR NAV */
+  /* NAV */
   .sidebar {
-    width: 190px;
-    flex-shrink: 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 8px;
-    margin-right: 20px;
-    position: sticky;
-    top: 24px;
-  }
-  .sidebar-section {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text3);
-    padding: 10px 10px 6px;
-  }
-  .sidebar-section + .sidebar-section { margin-top: 4px; border-top: 1px solid var(--border); padding-top: 14px; }
-  .tab-btn {
     width: 100%;
-    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    display: flex;
+    gap: 0;
+    flex-shrink: 0;
+    background: none;
+    padding: 0;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 8px;
     background: none;
     border: none;
-    border-radius: var(--radius);
+    border-bottom: 2px solid transparent;
     cursor: pointer;
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 400;
-    color: var(--text2);
+    color: var(--text3);
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 9px;
-    transition: all 0.15s;
-    text-align: left;
-    margin-bottom: 2px;
+    justify-content: center;
+    gap: 7px;
+    transition: color 0.15s, border-color 0.15s;
+    text-align: center;
+    white-space: nowrap;
+    margin-bottom: -1px;
   }
-  .tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; color: var(--text3); }
-  .tab-btn:hover { color: var(--text); background: var(--surface2); }
+  .tab-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .tab-btn:hover { color: var(--text2); }
   .tab-btn.active {
-    background: var(--surface2);
     color: var(--text);
-    border: 1px solid var(--border2);
+    border-bottom: 2px solid var(--bmw-blue);
     font-weight: 500;
   }
   .tab-btn.active svg { color: var(--bmw-blue); }
   .content-area {
     flex: 1;
     min-width: 0;
+    width: 100%;
   }
 
   /* PANELS */
   .panel { display: none; animation: fadeIn 0.2s ease; }
   .panel.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   /* SECTION LABEL */
   .section-label {
@@ -197,12 +168,15 @@
   }
 
   /* ISSUE GRID */
+  
+  /* ISSUE GRID */
   .issue-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     margin-bottom: 28px;
   }
+
   .issue-btn {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -242,7 +216,7 @@
     padding: 18px 20px;
     animation: fadeIn 0.25s ease;
   }
-  .mech-card.primary { border-color: rgba(74,144,226,0.35); }
+  .mech-card.primary { border-color: rgba(74,144,226,0.25); }
   .mech-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 10px; }
   .mech-name { font-size: 16px; font-weight: 600; color: var(--text); }
   .badge {
@@ -388,7 +362,7 @@
     display: none;
   }
   .entry-form.show { display: block; animation: fadeIn 0.2s ease; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  
   .form-group { display: flex; flex-direction: column; gap: 5px; }
   .form-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); }
   .form-group input, .form-group select, .form-group textarea {
@@ -546,12 +520,9 @@
   /* DIVIDER */
   .divider { height: 1px; background: var(--border); margin: 24px 0; }
 
-  @media (max-width: 640px) {
-    .app-body { flex-direction: column; }
-    .sidebar { width: 100%; position: static; margin-right: 0; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; }
-    .sidebar-section { display: none; }
-    .tab-btn { width: auto; flex: 1; justify-content: center; padding: 8px 10px; font-size: 12px; }
-    .tab-btn svg { display: none; }
+  @media (max-width: 540px) {
+    .tab-btn span, .tab-btn svg { display: none; }
+    .tab-btn { font-size: 12px; padding: 8px 6px; }
     .issue-grid { grid-template-columns: repeat(2, 1fr); }
     .form-row { grid-template-columns: 1fr; }
     h1 { font-size: 32px; }
@@ -646,6 +617,94 @@
   }
   #diag-chat a { color: #f472b6; }
 
+
+  /* DASHBOARD */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .dash-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+  }
+  .dash-stat.accent { border-color: rgba(74,144,226,0.3); }
+  .dash-stat.warn   { border-color: rgba(245,166,35,0.3); }
+  .dash-stat.danger { border-color: rgba(224,90,90,0.3); }
+  .dash-stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+  .dash-stat-value { font-size: 24px; font-weight: 600; color: var(--text); line-height: 1.1; }
+  .dash-stat-sub   { font-size: 12px; color: var(--text3); margin-top: 3px; }
+
+  .dash-section-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text3); margin: 20px 0 10px;
+  }
+
+  .action-card {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 13px 16px;
+    margin-bottom: 8px; cursor: pointer; transition: all 0.15s;
+    text-align: left; width: 100%; font-family: var(--font-body);
+  }
+  .action-card:hover { border-color: var(--border2); }
+  .action-card.overdue { border-color: rgba(224,90,90,0.3); }
+  .action-card.urgent  { border-color: rgba(245,166,35,0.3); }
+  .action-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .action-body { flex: 1; }
+  .action-label { font-size: 14px; font-weight: 500; color: var(--text); }
+  .action-sub   { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .action-eta   { font-size: 12px; font-weight: 600; flex-shrink: 0; }
+  .action-eta.overdue { color: var(--red); }
+  .action-eta.urgent  { color: var(--amber); }
+  .action-eta.ok      { color: var(--text3); }
+
+  .quick-actions { display: flex; gap: 8px; margin-bottom: 4px; }
+  .quick-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 12px 10px;
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: var(--text2); cursor: pointer; transition: all 0.15s;
+  }
+  .quick-btn:hover { border-color: var(--border2); color: var(--text); background: var(--surface2); }
+  .quick-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .quick-btn.primary { background: var(--bmw-blue-dim); border-color: rgba(74,144,226,0.25); color: var(--bmw-blue); }
+  .quick-btn.primary:hover { background: var(--bmw-blue-glow); }
+
+  .recent-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .recent-item:last-child { border-bottom: none; }
+  .recent-name { color: var(--text); font-weight: 500; }
+  .recent-meta { color: var(--text3); font-size: 12px; margin-top: 2px; }
+  .recent-date { color: var(--text3); font-size: 12px; }
+
+  /* MY CAR tabs */
+  .mycar-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 4px; }
+  .mycar-tab { flex: 1; padding: 8px 6px; background: none; border: none; border-radius: var(--radius); cursor: pointer; font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--text3); transition: all 0.15s; }
+  .mycar-tab:hover { color: var(--text2); }
+  .mycar-tab.active { background: var(--surface2); color: var(--text); border: 1px solid var(--border2); }
+  .mycar-sub { display: none; }
+  .mycar-sub.active { display: block; animation: fadeIn 0.2s ease; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--surface2); border: 1px solid var(--green); border-radius: var(--radius-lg);
+    padding: 10px 20px; font-size: 13px; color: var(--green); font-family: var(--font-body);
+    display: flex; align-items: center; gap: 8px; z-index: 9999;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none; white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast svg { width: 14px; height: 14px; flex-shrink: 0; }
+
 </style>
 </head>
 <body>
@@ -664,37 +723,35 @@
           Roncesvalles, Toronto
         </span>
         <span class="dot"></span>
-        <span>Lubrico Warranty</span>
+        <span>A-Protect Warranty</span>
       </div>
     </div>
   </header>
 
   <div class="app-body">
   <nav class="sidebar">
-    <div class="sidebar-section">Tools</div>
+    <button class="tab-btn active" onclick="switchTab('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </button>
+    <button class="tab-btn" onclick="switchTab('mycar')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5"/><circle cx="15.5" cy="17.5" r="2.5"/><circle cx="5.5" cy="17.5" r="2.5"/></svg>
+      My Car
+    </button>
     <button class="tab-btn" onclick="switchTab('mileage')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       Mileage
     </button>
-    <button class="tab-btn active" onclick="switchTab('mechanic')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+    <button class="tab-btn" onclick="switchTab('mechanic')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
       Mechanics
     </button>
-    <button class="tab-btn" onclick="switchTab('lubrico')">
+    <button class="tab-btn" onclick="switchTab('aprotect')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 5v6c0 5.25 3.5 10.15 8 11.5C16.5 21.15 20 16.25 20 11V5l-8-3z"/></svg>
-      Lubrico
+      A-Protect
     </button>
-    <button class="tab-btn" onclick="switchTab('tracker')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      Tracker
-    </button>
-    <button class="tab-btn" onclick="switchTab('watchlist')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      Watch List
-    </button>
-    <div style="height:1px;background:var(--border);margin:6px 4px;"></div>
-    <button class="tab-btn" onclick="switchTab('diagnose')" style="color:#f472b6;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11m0 0h10m-10 0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m14 4V9m0 8a2 2 0 0 0 2-2v-4"/><circle cx="12" cy="14" r="2"/></svg>
+    <button class="tab-btn" onclick="switchTab('diagnose')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Diagnose
     </button>
   </nav>
@@ -703,9 +760,12 @@
 
   <!-- DIAGNOSE PANEL -->
   <div id="panel-diagnose" class="panel">
-    <div style="margin-bottom:16px;">
-      <div class="tracker-title" style="margin-bottom:4px;">AI Diagnostic assistant</div>
-      <div style="font-size:13px;color:var(--text3);">Describe what you're seeing, hearing, or feeling. Claude will use your service history and mileage data to help guide next steps.</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:12px;">
+      <div>
+        <div class="tracker-title" style="margin-bottom:4px;">AI Diagnostic assistant</div>
+        <div style="font-size:13px;color:var(--text3);">Describe what you're seeing, hearing, or feeling. Claude will use your service history and mileage data to help guide next steps.</div>
+      </div>
+      <button onclick="clearDiagHistory()" style="background:none;border:1px solid var(--border);border-radius:var(--radius);padding:6px 12px;font-family:var(--font-body);font-size:12px;color:var(--text3);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">New conversation</button>
     </div>
 
     <div id="diag-chat" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;min-height:60px;"></div>
@@ -795,6 +855,7 @@
     </div>
 
     <!-- Maintenance forecast table -->
+    <div id="maint-forecast-placeholder">
     <div id="maint-forecast-wrap" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;">
       <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
         <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);">Projected maintenance</div>
@@ -819,6 +880,7 @@
         ETAs calculated from current odometer. Log services in the Tracker to update baselines.
       </div>
     </div>
+    </div><!-- /maint-forecast-placeholder -->
 
     <!-- Month-over-month table -->
     <div id="mileage-mom-wrap" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;">
@@ -832,8 +894,34 @@
     </div>
   </div>
 
+  <!-- DASHBOARD PANEL -->
+  <div id="panel-dashboard" class="panel active">
+    <div id="dash-content">
+      <div class="empty-state" style="padding:2rem 0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:36px;height:36px;display:block;margin:0 auto 10px;opacity:0.3;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Loading dashboard...
+      </div>
+    </div>
+  </div>
+
+  <!-- MY CAR PANEL -->
+  <div id="panel-mycar" class="panel">
+    <div class="mycar-tabs">
+      <button class="mycar-tab active" onclick="switchMycar('tracker')">Service log</button>
+      <button class="mycar-tab" onclick="switchMycar('maintenance')">Maintenance</button>
+      <button class="mycar-tab" onclick="switchMycar('watchlist2')">Watch list</button>
+      <button class="mycar-tab" onclick="switchMycar('mechanics')">Mechanics</button>
+      <button class="mycar-tab" onclick="switchMycar('aprotect')">A-Protect</button>
+    </div>
+    <div id="mycar-tracker" class="mycar-sub active"></div>
+    <div id="mycar-maintenance" class="mycar-sub"></div>
+    <div id="mycar-watchlist2" class="mycar-sub"></div>
+    <div id="mycar-mechanics" class="mycar-sub"></div>
+    <div id="mycar-aprotect" class="mycar-sub"></div>
+  </div>
+
   <!-- MECHANIC PANEL -->
-  <div id="panel-mechanic" class="panel active">
+  <div id="panel-mechanic" class="panel">
     <p class="section-label">Select issue type</p>
     <div class="issue-grid">
       <button class="issue-btn" onclick="selectIssue('engine', this)">
@@ -865,16 +953,16 @@
     <div id="mech-results" class="mech-results"></div>
   </div>
 
-  <!-- LUBRICO PANEL -->
-  <div id="panel-lubrico" class="panel">
-    <p class="lubrico-intro">Step-by-step guide for getting a repair covered under your Lubrico warranty. Tap each step to mark it complete.</p>
+  <!-- A-PROTECT PANEL -->
+  <div id="panel-aprotect" class="panel">
+    <p class="lubrico-intro">Step-by-step guide for getting a repair covered under your A-Protect warranty. Tap each step to mark it complete.</p>
 
-    <div class="steps-list" id="lubrico-steps">
+    <div class="steps-list" id="aprotect-steps">
       <div class="step-item" onclick="toggleStep(this)">
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Confirm the issue is a covered component</div>
-          <div class="step-desc">Lubrico covers most mechanical and electrical failures. Review your contract for exclusions -- wear items like brake pads, tires, and glass are typically excluded. Engine, transmission, cooling, electrical, and A/C are usually included.</div>
+          <div class="step-desc">A-Protect Diamond Plus covers most mechanical and electrical failures. Review your contract for exclusions -- wear items like brake pads, tires, and glass are typically excluded. Engine, transmission, cooling, electrical, and A/C are usually included. Maximum payout is $7,500 per claim.</div>
         </div>
         <div class="step-circle">○</div>
       </div>
@@ -882,15 +970,15 @@
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">Do not authorize any repairs yet</div>
-          <div class="step-desc">Before any work begins, Lubrico must pre-authorize the claim. Authorizing repairs without their approval almost always voids coverage. Drive or tow to a shop that will hold work pending authorization.</div>
+          <div class="step-desc">Before any work begins, A-Protect must pre-authorize the claim. Authorizing repairs without their approval almost always voids coverage. Drive or tow to a shop that will hold work pending authorization.</div>
         </div>
         <div class="step-circle">○</div>
       </div>
       <div class="step-item" onclick="toggleStep(this)">
         <div class="step-num">3</div>
         <div class="step-body">
-          <div class="step-title">Call Lubrico's claims line</div>
-          <div class="step-desc"><strong>1-800-268-6734</strong> -- have your warranty contract number, VIN, current mileage, and a brief description of the issue ready. Open Mon–Fri 8am–5pm EST. After hours, leave a message and do not proceed with repairs.</div>
+          <div class="step-title">Call A-Protect's claims line</div>
+          <div class="step-desc"><strong>1-800-265-8699</strong> -- have your warranty contract number, VIN, current mileage, and a brief description of the issue ready. Open Mon–Fri 8am–5pm EST. After hours, leave a message and do not proceed with repairs.</div>
         </div>
         <div class="step-circle">○</div>
       </div>
@@ -898,15 +986,15 @@
         <div class="step-num">4</div>
         <div class="step-body">
           <div class="step-title">Take the car to a licensed repair facility</div>
-          <div class="step-desc">Lubrico requires a licensed shop (most reputable shops qualify). If you have a preferred BMW specialist, confirm they'll work with third-party warranty claims before dropping the car off -- most will, but call ahead.</div>
+          <div class="step-desc">A-Protect requires a licensed shop (most reputable shops qualify). If you have a preferred BMW specialist, confirm they'll work with A-Protect claims before dropping the car off -- most will, but call ahead.</div>
         </div>
         <div class="step-circle">○</div>
       </div>
       <div class="step-item" onclick="toggleStep(this)">
         <div class="step-num">5</div>
         <div class="step-body">
-          <div class="step-title">Mechanic contacts Lubrico for pre-authorization</div>
-          <div class="step-desc">The shop calls Lubrico directly (same number) with a repair estimate and diagnostic codes. Lubrico may send an inspector for larger claims. Authorization typically takes a few hours to one business day.</div>
+          <div class="step-title">Mechanic contacts A-Protect for pre-authorization</div>
+          <div class="step-desc">The shop calls A-Protect directly (same number) with a repair estimate and diagnostic codes. A-Protect may send an inspector for larger claims -- more likely given the $7,500 cap makes every claim meaningful. Authorization typically takes a few hours to one business day.</div>
         </div>
         <div class="step-circle">○</div>
       </div>
@@ -914,15 +1002,15 @@
         <div class="step-num">6</div>
         <div class="step-body">
           <div class="step-title">Get the authorization number in writing</div>
-          <div class="step-desc">Before work starts, ensure both you and the shop have the Lubrico authorization number. This is your reference if there's a billing dispute later. Screenshot or photograph any confirmation you receive.</div>
+          <div class="step-desc">Before work starts, ensure both you and the shop have the A-Protect authorization number. This is your reference if there's a billing dispute later. Screenshot or photograph any confirmation you receive.</div>
         </div>
         <div class="step-circle">○</div>
       </div>
       <div class="step-item" onclick="toggleStep(this)">
         <div class="step-num">7</div>
         <div class="step-body">
-          <div class="step-title">Pay your deductible; Lubrico covers the rest</div>
-          <div class="step-desc">Your deductible is listed on your contract (commonly $100–$200). Lubrico typically pays the shop directly for the approved amount. Keep your itemized invoice regardless of who pays.</div>
+          <div class="step-title">Pay your deductible; A-Protect covers the rest</div>
+          <div class="step-desc">Your deductible is listed on your contract. A-Protect pays the shop directly for the approved amount, up to $7,500 per claim. Keep your itemized invoice regardless.</div>
         </div>
         <div class="step-circle">○</div>
       </div>
@@ -938,7 +1026,7 @@
 
     <div class="warning-card">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span><strong>Key rule:</strong> Never pay out of pocket expecting reimbursement. Lubrico's process requires pre-authorization before work begins -- retroactive claims are almost never approved.</span>
+      <span><strong>Key rule:</strong> Never pay out of pocket expecting reimbursement. A-Protect requires pre-authorization before work begins -- retroactive claims are almost never approved. Also note the $7,500 per-claim cap: get a full itemized estimate before authorizing so you know your exposure.</span>
     </div>
 
     <button class="reset-btn" onclick="resetSteps()">
@@ -997,7 +1085,7 @@
               <option value="Electronics / ECU">Electronics / ECU</option>
             </optgroup>
             <optgroup label="Warranty &amp; other">
-              <option value="Lubrico claim">Lubrico claim</option>
+              <option value="A-Protect claim">A-Protect claim</option>
               <option value="Inspection">Inspection</option>
               <option value="Detailing">Detailing</option>
               <option value="Other">Other</option>
@@ -1025,8 +1113,8 @@
           <input type="number" id="f-cost" placeholder="e.g. 280" />
         </div>
         <div class="form-group">
-          <label class="form-label">Lubrico auth # (if applicable)</label>
-          <input type="text" id="f-auth" placeholder="e.g. LUB-2026-XXXX" />
+          <label class="form-label">A-Protect auth # (if applicable)</label>
+          <input type="text" id="f-auth" placeholder="e.g. APR-2026-XXXX" />
         </div>
       </div>
       <div class="form-group">
@@ -1147,37 +1235,104 @@
 </div>
   </div>
 
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Saved</span>
+</div>
+
 <script>
-// ── STATE ───────────────────────────────────────────────────────────────────
-let records = JSON.parse(localStorage.getItem('m240i_records') || '[]');
-let mileageLog = JSON.parse(localStorage.getItem('m240i_mileage') || '[]');
-let targetKmPerMonth = parseInt(localStorage.getItem('m240i_target_km') || '1500');
-let maintOverrides = JSON.parse(localStorage.getItem('m240i_maint_overrides') || '{}');
+// ── SUPABASE CONFIG ──────────────────────────────────────────────────────────
+const SB_URL = 'https://hcfhgwiatkztbyfgurbb.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhjZmhnd2lhdGt6dGJ5Zmd1cmJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDg2NzMsImV4cCI6MjA5NDIyNDY3M30.6xNj3CdpzxFSTGAbz46DcUozlWgHFcBZWHq7YLV_ovU';
+
+async function sbFetch(table, method, body, params) {
+  let url = SB_URL + '/rest/v1/' + table;
+  if (params) url += '?' + params;
+  const opts = {
+    method: method || 'GET',
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': method === 'POST' ? 'resolution=merge-duplicates,return=representation' : 'return=representation'
+    }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(url, opts);
+  if (!res.ok) { const t = await res.text(); console.error('Supabase error:', t); return null; }
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+async function sbUpsert(table, data) {
+  return sbFetch(table, 'POST', Array.isArray(data) ? data : [data]);
+}
+
+async function sbDelete(table, match) {
+  const params = Object.entries(match).map(([k,v]) => `${k}=eq.${v}`).join('&');
+  return sbFetch(table, 'DELETE', null, params);
+}
+
+async function sbSelect(table, params) {
+  return sbFetch(table, 'GET', null, params || 'order=id.asc');
+}
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let records = [];
+let mileageLog = [];
+let targetKmPerMonth = 1500;
+let maintOverrides = {};
 let _lastMaintItems = null;
+let diagHistory = [];
+let _appLoaded = false;
+
+// ── LOAD ALL DATA FROM SUPABASE ───────────────────────────────────────────────
+async function loadAllData() {
+  const [recs, miles, overrides, diag, target] = await Promise.all([
+    sbSelect('records', 'order=id.desc'),
+    sbSelect('mileage_log', 'order=date.asc'),
+    sbSelect('maint_overrides'),
+    sbSelect('diag_history', 'order=id.asc'),
+    sbSelect('mileage_targets', 'id=eq.1')
+  ]);
+
+  records     = (recs     || []).map(r => ({ ...r, id: r.id, km: r.km, receipt: r.receipt, receiptName: r.receipt_name, receiptType: r.receipt_type }));
+  mileageLog  = (miles    || []).map(e => ({ id: e.id, km: e.km, date: e.date, note: e.note }));
+  maintOverrides = Object.fromEntries((overrides || []).map(o => [o.label, { lastKm: o.last_km, intervalKm: o.interval_km, isOriginal: o.is_original }]));
+  diagHistory = (diag     || []).map(d => ({ role: d.role, content: d.content }));
+  if (target && target[0]) targetKmPerMonth = target[0].km_per_month || 1500;
+
+  _appLoaded = true;
+  renderRecords();
+  renderMileage();
+  renderDashboard();
+  restoreDiagChat();
+  initTargetKmUI();
+}
 
 const mechanics = {
   engine: {
     shops: [
       { name: "RMP Motors", badge: "Gold standard", cls: "badge-best", dist: "~15–20 min via Gardiner/427", addr: "121 City View Dr, Etobicoke", desc: "Legendary in the Toronto BMW community. Rocco and his team specialize in complex engine work -- VANOS rebuilds, rod bearings, B58 diagnostics, and performance tuning. The go-to for any serious engine issue on an M car.", note: "Worth the drive for major engine work", primary: true },
-      { name: "Jerry's AutoMedic", badge: "BMW specialist", cls: "badge-good", dist: "~10–15 min", addr: "High Park / west end", desc: "Markets itself specifically as a BMW dealership alternative. Uses computerized BMW diagnostics and offers services that keep factory warranty intact. Known for being significantly more affordable than corporate dealers.", note: "Call ahead to confirm Lubrico acceptance" },
-      { name: "Parkview BMW / BMW Toronto", badge: "Warranty safe", cls: "badge-warranty", dist: "~20–25 min", addr: "Dealer network", desc: "Dealer diagnostics are definitive for complex engine issues and Lubrico won't dispute a dealer's report. Higher labour rates, but the strongest position for large or contested claims.", note: "Best for major or Lubrico-contested claims" }
+      { name: "Jerry's AutoMedic", badge: "BMW specialist", cls: "badge-good", dist: "~10–15 min", addr: "High Park / west end", desc: "Markets itself specifically as a BMW dealership alternative. Uses computerized BMW diagnostics and offers services that keep factory warranty intact. Known for being significantly more affordable than corporate dealers.", note: "Call ahead to confirm A-Protect acceptance" },
+      { name: "Parkview BMW / BMW Toronto", badge: "Warranty safe", cls: "badge-warranty", dist: "~20–25 min", addr: "Dealer network", desc: "Dealer diagnostics are definitive for complex engine issues and A-Protect won't dispute a dealer's report. Higher labour rates, but the strongest position for large or contested claims.", note: "Best for major or A-Protect-contested claims" }
     ],
-    tip: "Before calling Lubrico, note any active fault codes. Don't clear them -- Lubrico's adjuster will want to see them active. RMP Motors is the community favourite for anything serious on an M-badged BMW."
+    tip: "Before calling A-Protect, note any active fault codes. Don't clear them -- A-Protect's adjuster will want to see them active. RMP Motors is the community favourite for anything serious on an M-badged BMW."
   },
   electrical: {
     shops: [
       { name: "Eurospeed", badge: "Best for electrical", cls: "badge-best", dist: "~10 min", addr: "225B Geary Ave (Dufferin & Dupont)", desc: "European import specialist with a loyal following for technical knowledge of German electronics -- one of the most common pain points on BMWs. Has BMW-capable diagnostic software and a strong reputation for tricky electrical faults.", note: "Confirm BMW diagnostic software before booking", primary: true },
       { name: "Jerry's AutoMedic", badge: "BMW specialist", cls: "badge-good", dist: "~10–15 min", addr: "High Park / west end", desc: "Uses computerized BMW diagnostics and has experience with module-level faults. A solid middle ground between a generic shop and the dealer for electrical issues.", note: "Confirm coding capability before booking" },
-      { name: "Parkview BMW / BMW Toronto", badge: "For complex faults", cls: "badge-warranty", dist: "~20–25 min", addr: "Dealer network", desc: "For deep electrical issues -- CAS/EWS module failures, coding -- dealer software access is unmatched. Lubrico pre-authorization still required before any work begins.", note: "Strongest position for warranty electrical claims" }
+      { name: "Parkview BMW / BMW Toronto", badge: "For complex faults", cls: "badge-warranty", dist: "~20–25 min", addr: "Dealer network", desc: "For deep electrical issues -- CAS/EWS module failures, coding -- dealer software access is unmatched. A-Protect pre-authorization still required before any work begins.", note: "Strongest for A-Protect electrical claims" }
     ],
     tip: "Electronics / ECU faults on BMWs require factory-level diagnostic software. Don't let any shop clear codes without documenting them first."
   },
   brakes: {
     shops: [
       { name: "Master Mechanic High Park", badge: "Most convenient", cls: "badge-best", dist: "~2 min drive / 5 min walk", addr: "2 Howard Park Ave (Howard Park & Dundas W)", desc: "The closest quality shop to Roncesvalles -- highly regarded for transparency and community trust. Handles brakes, rotors, and pads well. Drop the car off and walk home. Not a BMW specialist, but more than capable for brake work.", note: "Ideal for routine brake jobs", primary: true },
-      { name: "Eurospeed", badge: "Best for suspension", cls: "badge-good", dist: "~10 min", addr: "225B Geary Ave (Dufferin & Dupont)", desc: "If the issue involves control arms, wheel bearings, or suspension geometry rather than just pads and rotors, Eurospeed's European import expertise makes them the better call.", note: "Suspension components may be Lubrico-covered -- pre-authorize" }
+      { name: "Eurospeed", badge: "Best for suspension", cls: "badge-good", dist: "~10 min", addr: "225B Geary Ave (Dufferin & Dupont)", desc: "If the issue involves control arms, wheel bearings, or suspension geometry rather than just pads and rotors, Eurospeed's European import expertise makes them the better call.", note: "Suspension components may be A-Protect-covered -- pre-authorize" }
     ],
-    tip: "Brake pads and rotors are wear items usually excluded from Lubrico. Suspension components (control arms, wheel bearings, struts) are often covered -- check your contract and pre-authorize."
+    tip: "Brake pads and rotors are wear items usually excluded from A-Protect. Suspension components (control arms, wheel bearings, struts) are often covered -- check your contract and pre-authorize."
   },
   oil: {
     shops: [
@@ -1188,18 +1343,18 @@ const mechanics = {
   },
   body: {
     shops: [
-      { name: "Eurospeed", badge: "For A/C warranty", cls: "badge-warranty", dist: "~10 min", addr: "225B Geary Ave (Dufferin & Dupont)", desc: "Strong reputation for German cooling systems and HVAC diagnosis. A/C compressor failures may be Lubrico-covered as a mechanical part -- pre-authorize before any work begins.", note: "Pre-authorize A/C compressor with Lubrico first" },
-      { name: "Local body shop", badge: "Cosmetic / body", cls: "badge-general", dist: "Various", addr: "Roncesvalles / Parkdale area", desc: "Cosmetic damage, paint, glass, and trim are not Lubrico-covered. Any reputable body shop works. Ask about OEM vs aftermarket parts -- OEM is worth it for visible exterior panels.", note: "Insurance or out-of-pocket; not warranty" }
+      { name: "Eurospeed", badge: "For A/C warranty", cls: "badge-warranty", dist: "~10 min", addr: "225B Geary Ave (Dufferin & Dupont)", desc: "Strong reputation for German cooling systems and HVAC diagnosis. A/C compressor failures may be A-Protect-covered as a mechanical part -- pre-authorize before any work begins.", note: "Pre-authorize A/C compressor with A-Protect first" },
+      { name: "Local body shop", badge: "Cosmetic / body", cls: "badge-general", dist: "Various", addr: "Roncesvalles / Parkdale area", desc: "Cosmetic damage, paint, glass, and trim are not A-Protect-covered. Any reputable body shop works. Ask about OEM vs aftermarket parts -- OEM is worth it for visible exterior panels.", note: "Insurance or out-of-pocket; not warranty" }
     ],
-    tip: "A/C compressor failures are often covered under Lubrico as a mechanical part. Cosmetic damage, glass, and rubber seals are not. When in doubt, call Lubrico before authorizing anything."
+    tip: "A/C compressor failures are often covered under Lubrico as a mechanical part. Cosmetic damage, glass, and rubber seals are not. When in doubt, call A-Protect before authorizing anything."
   },
   unknown: {
     shops: [
       { name: "Jerry's AutoMedic", badge: "Start here", cls: "badge-best", dist: "~10–15 min", addr: "High Park / west end", desc: "BMW specialist with computerized diagnostics -- a good first stop for any warning light. They'll pull BMW-specific fault codes and give you a clear picture before you decide whether to escalate to RMP or the dealer.", note: "Note the light, when it appeared, and driving conditions", primary: true },
       { name: "RMP Motors", badge: "For M-car issues", cls: "badge-good", dist: "~15–20 min via Gardiner/427", addr: "121 City View Dr, Etobicoke", desc: "If the warning light relates to engine, drivetrain, or anything performance-related, RMP is the community's most trusted diagnosis for M-badged cars. Worth the drive for a second opinion on anything serious.", note: "Legendary for complex BMW diagnosis" },
-      { name: "Parkview BMW / BMW Toronto", badge: "Definitive diagnosis", cls: "badge-warranty", dist: "~20–25 min", addr: "Dealer network", desc: "For Lubrico claims, a dealer diagnostic report is the hardest to dispute. If you're unsure what the issue is, a dealer scan gives you the most defensible starting point for the warranty call.", note: "Dealer scan = strongest Lubrico position" }
+      { name: "Parkview BMW / BMW Toronto", badge: "Definitive diagnosis", cls: "badge-warranty", dist: "~20–25 min", addr: "Dealer network", desc: "For A-Protect claims, a dealer diagnostic report is the hardest to dispute. If you're unsure what the issue is, a dealer scan gives you the most defensible starting point for the warranty call.", note: "Dealer scan = strongest A-Protect position" }
     ],
-    tip: "Note the exact warning light symbol, when it appeared, and what you were doing (cold start, highway, city). This detail matters when you call Lubrico."
+    tip: "Note the exact warning light symbol, when it appeared, and what you were doing (cold start, highway, city). This detail matters when you call A-Protect."
   }
 };
 
@@ -1241,8 +1396,16 @@ function selectIssue(type, btn) {
 function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
-  document.getElementById(`panel-${tab}`).classList.add('active');
+  const btn = document.querySelector(`[onclick="switchTab('${tab}')"]`);
+  if (btn) btn.classList.add('active');
+  const panel = document.getElementById(`panel-${tab}`);
+  if (panel) panel.classList.add('active');
+  if (tab === 'dashboard') renderDashboard();
+  if (tab === 'mycar') {
+    // render the default sub-tab on first open
+    const active = document.querySelector('.mycar-sub.active');
+    if (!active || active.children.length === 0) switchMycar('tracker');
+  }
 }
 
 function toggleStep(el) {
@@ -1345,7 +1508,7 @@ function saveEntry() {
     receiptType: _pendingReceiptType || null
   };
   records.unshift(entry);
-  localStorage.setItem('m240i_records', JSON.stringify(records));
+  // records saved to Supabase via sbUpsert above
   ['f-type','f-km','f-shop','f-cost','f-auth','f-notes'].forEach(id => document.getElementById(id).value = '');
   resetReceiptUI();
   document.getElementById('entry-form').classList.remove('show');
@@ -1355,8 +1518,10 @@ function saveEntry() {
 function deleteEntry(id) {
   if (!confirm('Delete this record?')) return;
   records = records.filter(r => r.id !== id);
-  localStorage.setItem('m240i_records', JSON.stringify(records));
+  sbDelete('records', { id });
   renderRecords();
+  renderDashboard();
+  showToast('Record deleted');
 }
 
 const SERVICE_OPTS_HTML = `<option value="">Select type...</option>
@@ -1394,7 +1559,7 @@ const SERVICE_OPTS_HTML = `<option value="">Select type...</option>
               <option value="Electronics / ECU">Electronics / ECU</option>
             </optgroup>
             <optgroup label="Warranty &amp; other">
-              <option value="Lubrico claim">Lubrico claim</option>
+              <option value="A-Protect claim">A-Protect claim</option>
               <option value="Inspection">Inspection</option>
               <option value="Detailing">Detailing</option>
               <option value="Other">Other</option>
@@ -1462,7 +1627,7 @@ function startEdit(id) {
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input class="edit-field" type="number" value="${r.cost || ''}" placeholder="Cost ($)" style="flex:1;" />
-        <input class="edit-field" type="text" value="${r.auth || ''}" placeholder="Lubrico auth #" style="flex:1.5;" />
+        <input class="edit-field" type="text" value="${r.auth || ''}" placeholder="A-Protect auth #" style="flex:1.5;" />
       </div>
       <textarea class="edit-field" placeholder="Notes" style="width:100%;height:52px;resize:vertical;">${r.notes || ''}</textarea>
       <div style="display:flex;gap:8px;">
@@ -1489,10 +1654,19 @@ function saveEdit(id, btn) {
     auth: authEl.value.trim(),
     notes: notesEl.value.trim(),
   };
-  localStorage.setItem('m240i_records', JSON.stringify(records));
+  const r = records[idx];
+  sbUpsert('records', {
+    id: r.id, type: r.type, date: r.date, km: r.km,
+    shop: r.shop, cost: r.cost, auth: r.auth, notes: r.notes,
+    receipt: r.receipt || null,
+    receipt_name: r.receiptName || null,
+    receipt_type: r.receiptType || null
+  });
   renderRecords();
   renderMileage();
   renderMaintTable(null, 0, targetKmPerMonth / 30.4);
+  renderDashboard();
+  showToast('Record updated');
 }
 
 // ── MAINTENANCE TABLE INLINE EDIT ────────────────────────────────────────────
@@ -1540,7 +1714,7 @@ function saveMaintEdit(idx, label) {
     intervalKm: parseInt(intEl.value) || 15000,
     isOriginal: false
   };
-  localStorage.setItem('m240i_maint_overrides', JSON.stringify(maintOverrides));
+  sbUpsert('maint_overrides', { label, last_km: parseInt(kmEl.value) || 0, interval_km: parseInt(intEl.value) || 15000, is_original: false });
   renderMileage();
 }
 
@@ -1562,7 +1736,7 @@ function toggleMaintGroup(gk) {
 
 function resetMaintEdit(label) {
   delete maintOverrides[label];
-  localStorage.setItem('m240i_maint_overrides', JSON.stringify(maintOverrides));
+  sbDelete('maint_overrides', { label });
   renderMileage();
 }
 
@@ -1577,7 +1751,7 @@ function initTargetKmUI() {
 function onTargetKmChange(val) {
   const v = Math.max(500, Math.min(5000, parseInt(val) || 1500));
   targetKmPerMonth = v;
-  localStorage.setItem('m240i_target_km', v);
+  sbUpsert('mileage_targets', { id: 1, km_per_month: v });
   const sld = document.getElementById('target-km-slider');
   if (sld) sld.value = v;
   renderMileage();
@@ -1586,15 +1760,13 @@ function onTargetKmChange(val) {
 function onTargetKmSlider(val) {
   const v = parseInt(val);
   targetKmPerMonth = v;
-  localStorage.setItem('m240i_target_km', v);
+  sbUpsert('mileage_targets', { id: 1, km_per_month: v });
   const inp = document.getElementById('target-km-input');
   if (inp) inp.value = v;
   renderMileage();
 }
 
-function saveMileageToStorage() {
-  localStorage.setItem('m240i_mileage', JSON.stringify(mileageLog));
-}
+function saveMileageToStorage() { /* data now in Supabase */ }
 
 function toggleMileageForm() {
   const f = document.getElementById('mileage-form');
@@ -1610,18 +1782,21 @@ function saveMileage() {
   const date = document.getElementById('m-date').value;
   if (!km || !date) return;
   const note = document.getElementById('m-note').value.trim();
-  mileageLog.push({ id: Date.now(), km, date, note });
+  const mEntry = { id: Date.now(), km, date, note };
+  mileageLog.push(mEntry);
   mileageLog.sort((a, b) => a.date.localeCompare(b.date));
-  saveMileageToStorage();
+  sbUpsert('mileage_log', { id: mEntry.id, km: mEntry.km, date: mEntry.date, note: mEntry.note });
   document.getElementById('m-km').value = '';
   document.getElementById('m-note').value = '';
   document.getElementById('mileage-form').classList.remove('show');
   renderMileage();
+  renderDashboard();
+  showToast('Mileage logged');
 }
 
 function deleteMileage(id) {
   mileageLog = mileageLog.filter(e => e.id !== id);
-  saveMileageToStorage();
+  sbDelete('mileage_log', { id });
   renderMileage();
 }
 
@@ -1630,11 +1805,10 @@ function renderMaintTable(currentKm, trendKmPerDayArg, targetKmPerDayArg) {
   var targetKmPerDay = targetKmPerDayArg || (targetKmPerMonth / 30.4);
   // Fall back to best km from tracker records or mileage log if not passed
   if (!currentKm) {
-    const allKms = [
-      ...records.filter(r => r.km).map(r => parseInt(r.km)),
-      ...mileageLog.map(e => parseInt(e.km))
-    ].filter(k => !isNaN(k) && k > 0);
-    currentKm = allKms.length ? Math.max(...allKms) : null;
+    const mileKms2 = mileageLog.map(e => parseInt(e.km)).filter(k => !isNaN(k) && k > 0);
+    const svcKms2 = records.filter(r => r.km).map(r => parseInt(r.km)).filter(k => !isNaN(k) && k > 0);
+    currentKm = mileKms2.length ? Math.max(...mileKms2)
+              : svcKms2.length  ? Math.max(...svcKms2) : null;
   }
 
   // ── Maintenance schedule definition ─────────────────────────────────
@@ -1844,7 +2018,16 @@ function renderMaintTable(currentKm, trendKmPerDayArg, targetKmPerDayArg) {
   }).join('');
 
   // Render maintenance forecast table
-  const maintWrap = document.getElementById('maint-forecast-wrap');
+  // Ensure maint-forecast-wrap is accessible — it may have been moved to mycar-maintenance
+  let maintWrap = document.getElementById('maint-forecast-wrap');
+  if (!maintWrap) {
+    // Re-create it inside the mileage panel placeholder
+    const placeholder = document.getElementById('maint-forecast-placeholder');
+    if (placeholder) {
+      placeholder.innerHTML = `<div id="maint-forecast-wrap" style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;"></div>`;
+      maintWrap = document.getElementById('maint-forecast-wrap');
+    }
+  }
   if (maintWrap) {
     maintWrap.style.display = 'block';
     document.getElementById('maint-forecast-body').innerHTML = maintRows;
@@ -2017,7 +2200,7 @@ const SERVICE_COLORS = {
   'Wheel alignment':         '#64748b',
   'Suspension':              '#fb923c',
   'Electronics / ECU':       '#60a5fa',
-  'Lubrico claim':           '#e879f9',
+  'A-Protect claim':           '#e879f9',
   'Inspection':              '#475569',
   'Detailing':               '#334155',
   'Other':                   '#4a90e2',
@@ -2629,12 +2812,19 @@ function formatDateShort(d) {
   return dt.toLocaleDateString('en-CA', { month: 'short', year: '2-digit' });
 }
 
-renderRecords();
-renderMileage();
+// Load all data from Supabase on startup
+loadAllData();
 
 
 // ── DIAGNOSTIC TOOL ──────────────────────────────────────────────────────────
-let diagHistory = [];
+// ── DIAGNOSTIC CHAT RESTORE ─────────────────────────────────────────────────
+// Restore chat on load
+function restoreDiagChat() {
+  diagHistory.forEach(msg => {
+    if (msg.role === 'user') addDiagBubble(msg.content, 'user');
+    if (msg.role === 'assistant') addDiagBubble(msg.content, 'assistant');
+  });
+}
 
 function diagPrompt(btn) {
   document.getElementById('diag-input').value = btn.textContent.trim();
@@ -2684,14 +2874,20 @@ function buildCarContext() {
     + '- Acquired at: 41,486 km\n'
     + '- Current odometer: ' + (currentKm ? currentKm.toLocaleString() + ' km' : 'unknown') + '\n'
     + '- Avg monthly driving: ' + (kmPerMonth ? kmPerMonth.toLocaleString() + ' km/month' : 'unknown') + '\n'
-    + '- Warranty: Lubrico third-party warranty (pre-authorize before any repair)\n'
+    + '- Warranty: A-Protect Diamond Plus warranty (pre-authorize before any repair)\n'
     + '- Home base: Roncesvalles, Toronto\n\n'
     + 'SERVICE HISTORY (from owner\'s tracker):\n'
     + serviceHistory + '\n\n'
     + overdueSection + '\n\n'
-    + 'Your job: help the owner diagnose issues, decide urgency, determine whether it\'s likely Lubrico-covered, and recommend next steps including which local shop to use (RMP Motors for major engine/M-car work, Eurospeed for electrical/European, Jerry\'s AutoMedic for BMW-specific, Master Mechanic High Park for convenience/basic maintenance).\n\n'
-    + 'Be direct and practical. Flag anything safety-critical. Note Lubrico coverage likelihood. Keep responses concise but thorough -- use bullet points for action steps. Do not suggest the owner do their own repairs beyond basic checks.';
+    + 'Your job: help the owner diagnose issues, decide urgency, determine whether it\'s likely A-Protect-covered, and recommend next steps including which local shop to use (RMP Motors for major engine/M-car work, Eurospeed for electrical/European, Jerry\'s AutoMedic for BMW-specific, Master Mechanic High Park for convenience/basic maintenance).\n\n'
+    + 'Be direct and practical. Flag anything safety-critical. Note A-Protect coverage likelihood (flag if repair may exceed $7,500 cap). Keep responses concise but thorough -- use bullet points for action steps. Do not suggest the owner do their own repairs beyond basic checks.';
 }
+function clearDiagHistory() {
+  diagHistory = [];
+  sbFetch('diag_history', 'DELETE', null, 'id=gte.0');
+  document.getElementById('diag-chat').innerHTML = '';
+}
+
 async function sendDiagnosis() {
   const input = document.getElementById('diag-input');
   const msg = input.value.trim();
@@ -2700,6 +2896,7 @@ async function sendDiagnosis() {
   // Add user bubble
   addDiagBubble(msg, 'user');
   diagHistory.push({ role: 'user', content: msg });
+  sbUpsert('diag_history', { role: 'user', content: msg });
   input.value = '';
 
   // Thinking indicator
@@ -2733,6 +2930,7 @@ async function sendDiagnosis() {
     if (thinking) thinking.remove();
 
     diagHistory.push({ role: 'assistant', content: reply });
+  sbUpsert('diag_history', { role: 'assistant', content: reply });
     addDiagBubble(reply, 'assistant');
 
   } catch (err) {
@@ -2775,6 +2973,218 @@ document.addEventListener('keydown', (e) => {
     if (panel && panel.classList.contains('active')) sendDiagnosis();
   }
 });
+
+
+// ── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toast-msg');
+  if (!t || !m) return;
+  m.textContent = msg || 'Saved';
+  t.style.borderColor = type === 'error' ? 'var(--red)' : 'var(--green)';
+  t.style.color = type === 'error' ? 'var(--red)' : 'var(--green)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Patch save functions to show toast
+const _origSaveEntry = saveEntry;
+// Override via wrapper after definitions load — done inline below
+
+// ── MY CAR SUB-TABS ───────────────────────────────────────────────────────────
+function switchMycar(sub) {
+  document.querySelectorAll('.mycar-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mycar-sub').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.mycar-tab[onclick="switchMycar('${sub}')"]`).classList.add('active');
+  document.getElementById('mycar-' + sub).classList.add('active');
+
+  // Lazy-render content into the sub panels
+  if (sub === 'tracker') renderMycarTracker();
+  if (sub === 'maintenance') renderMycarMaintenance();
+  if (sub === 'watchlist2') renderMycarWatchlist();
+}
+
+function renderMycarTracker() {
+  const el = document.getElementById('mycar-tracker');
+  // Clone the tracker panel content
+  const src = document.getElementById('panel-tracker');
+  if (src && el && el.children.length === 0) {
+    el.innerHTML = src.innerHTML;
+  }
+}
+
+function renderMycarMaintenance() {
+  // Just call renderMaintTable — it will populate maint-forecast-wrap
+  // Then move the element into mycar-maintenance so IDs are unique
+  const el = document.getElementById('mycar-maintenance');
+  if (!el) return;
+  renderMaintTable(null, 0, targetKmPerMonth / 30.4);
+  const src = document.getElementById('maint-forecast-wrap');
+  if (src) {
+    el.innerHTML = '';
+    el.appendChild(src);  // move (not clone) — keeps IDs unique
+  }
+}
+
+function renderMycarWatchlist() {
+  const el = document.getElementById('mycar-watchlist2');
+  if (!el) return;
+  const src = document.getElementById('panel-watchlist');
+  if (src && el.children.length === 0) {
+    el.innerHTML = src.innerHTML;
+  }
+}
+
+function renderMycarMechanics() {
+  const el = document.getElementById('mycar-mechanics');
+  if (!el) return;
+  const src = document.getElementById('panel-mechanic');
+  if (src && el.children.length === 0) {
+    el.innerHTML = src.innerHTML;
+  }
+}
+
+function renderMycarAprotect() {
+  const el = document.getElementById('mycar-aprotect');
+  if (!el) return;
+  const src = document.getElementById('panel-aprotect');
+  if (src && el.children.length === 0) {
+    el.innerHTML = src.innerHTML;
+  }
+}
+
+// ── DASHBOARD ────────────────────────────────────────────────────────────────
+function renderDashboard() {
+  const el = document.getElementById('dash-content');
+  if (!el) return;
+
+  // Current odometer — prefer mileage log (most accurate); fall back to max service record km
+  const mileageKms = mileageLog.map(e => parseInt(e.km)).filter(k => !isNaN(k) && k > 0);
+  const serviceKms = records.filter(r => r.km).map(r => parseInt(r.km)).filter(k => !isNaN(k) && k > 0);
+  const currentKm = mileageKms.length
+    ? Math.max(...mileageKms)
+    : serviceKms.length ? Math.max(...serviceKms) : null;
+
+  // Last service
+  const lastRec = records.length
+    ? [...records].sort((a,b) => (b.date||'').localeCompare(a.date||''))[0]
+    : null;
+
+  // Days since last service
+  const daysSinceLast = lastRec && lastRec.date
+    ? Math.round((Date.now() - new Date(lastRec.date + 'T12:00:00').getTime()) / 86400000)
+    : null;
+
+  // Km/month trend
+  let kmPerMonth = null;
+  if (mileageLog.length >= 2) {
+    const sorted = [...mileageLog].sort((a,b) => a.date.localeCompare(b.date));
+    const first = sorted[0], last = sorted[sorted.length-1];
+    const days = Math.max(1,(new Date(last.date)-new Date(first.date))/86400000);
+    kmPerMonth = Math.round((last.km-first.km)/days*30.4);
+  }
+
+  // Action items — top 5 due soonest from _lastMaintItems
+  const actionItems = [];
+  if (_lastMaintItems && currentKm) {
+    _lastMaintItems.forEach(item => {
+      const dueKm = item.lastKm + (item.intervalKm || 15000);
+      const kmNeeded = dueKm - currentKm;
+      const urgency = kmNeeded <= 0 ? 'overdue' : kmNeeded < 5000 ? 'urgent' : 'ok';
+      if (urgency !== 'ok') {
+        actionItems.push({ label: item.label, col: item.col, dueKm, kmNeeded, urgency });
+      }
+    });
+    actionItems.sort((a,b) => a.kmNeeded - b.kmNeeded);
+  }
+
+  // Recent records
+  const recent = [...records]
+    .sort((a,b) => (b.date||'').localeCompare(a.date||''))
+    .slice(0, 3);
+
+  const noDataNote = !currentKm
+    ? '<div style="font-size:13px;color:var(--text3);margin-bottom:16px;padding:12px 14px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);">Log your first mileage reading or service to populate the dashboard.</div>'
+    : '';
+
+  el.innerHTML = `
+    ${noDataNote}
+
+    <div class="quick-actions">
+      <button class="quick-btn primary" onclick="switchTab('mileage');setTimeout(toggleMileageForm,100)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Log mileage
+      </button>
+      <button class="quick-btn" onclick="switchTab('mycar');setTimeout(()=>{switchMycar('tracker');setTimeout(toggleForm,100)},100)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Log service
+      </button>
+      <button class="quick-btn" onclick="switchTab('diagnose')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Diagnose
+      </button>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-stat accent">
+        <div class="dash-stat-label">Odometer</div>
+        <div class="dash-stat-value">${currentKm ? currentKm.toLocaleString() : '—'}</div>
+        <div class="dash-stat-sub">km${currentKm ? '' : ' · not logged yet'}</div>
+      </div>
+      <div class="dash-stat ${daysSinceLast !== null && daysSinceLast > 90 ? 'warn' : ''}">
+        <div class="dash-stat-label">Last service</div>
+        <div class="dash-stat-value">${daysSinceLast !== null ? daysSinceLast : '—'}</div>
+        <div class="dash-stat-sub">${daysSinceLast !== null ? 'days ago' : 'no records yet'}</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-label">Avg pace</div>
+        <div class="dash-stat-value">${kmPerMonth ? kmPerMonth.toLocaleString() : '—'}</div>
+        <div class="dash-stat-sub">km/month</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-label">Services logged</div>
+        <div class="dash-stat-value">${records.length}</div>
+        <div class="dash-stat-sub">${records.length === 1 ? 'entry' : 'entries'}</div>
+      </div>
+    </div>
+
+    ${actionItems.length ? `
+    <div class="dash-section-title">Needs attention</div>
+    ${actionItems.slice(0,5).map(item => `
+      <button class="action-card ${item.urgency}" onclick="switchTab('mycar');setTimeout(()=>switchMycar('maintenance'),100)">
+        <div class="action-dot" style="background:${item.col};"></div>
+        <div class="action-body">
+          <div class="action-label">${item.label}</div>
+          <div class="action-sub">Due at ${item.dueKm.toLocaleString()} km</div>
+        </div>
+        <div class="action-eta ${item.urgency}">
+          ${item.kmNeeded <= 0 ? 'Overdue' : item.kmNeeded.toLocaleString() + ' km'}
+        </div>
+      </button>`).join('')}` : currentKm ? `
+    <div class="dash-section-title">Maintenance</div>
+    <div style="font-size:13px;color:var(--text3);padding:12px 0;">All tracked items are within their service intervals. Nothing urgent.</div>` : ''}
+
+    ${recent.length ? `
+    <div class="dash-section-title">Recent activity</div>
+    <div>
+      ${recent.map(r => `
+      <div class="recent-item">
+        <div>
+          <div class="recent-name">${r.type}</div>
+          <div class="recent-meta">${r.km ? Number(r.km).toLocaleString()+' km' : ''}${r.shop ? (r.km ? ' · ' : '')+r.shop : ''}</div>
+        </div>
+        <div class="recent-date">${r.date || '—'}</div>
+      </div>`).join('')}
+    </div>` : ''}
+  `;
+}
+
+// ── PATCH switchTab to render dashboard on switch ────────────────────────────
+// switchTab already handles dashboard render inline
+
+// ── LUBRICO CLAIM LOG ────────────────────────────────────────────────────────
+let aprotectClaims = JSON.parse(localStorage.getItem('m240i_aprotect_claims') || '[]');
+
 
 </script>
 </body>
