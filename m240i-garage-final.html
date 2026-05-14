@@ -1440,8 +1440,11 @@ function switchTab(tab) {
   const panel = document.getElementById(`panel-${tab}`);
   if (panel) panel.classList.add('active');
   if (tab === 'dashboard') renderDashboard();
+  if (tab === 'mileage') {
+    // Defer so browser paints the panel before canvas measures clientWidth
+    setTimeout(() => renderMileage(), 50);
+  }
   if (tab === 'mycar') {
-    // render the default sub-tab on first open
     const active = document.querySelector('.mycar-sub.active');
     if (!active || active.children.length === 0) switchMycar('tracker');
   }
@@ -2446,7 +2449,7 @@ function drawMileageChart(sorted, proj) {
   const _axisEnd = new Date(new Date().getFullYear(), new Date().getMonth() + 13, 1);
   let _tickCount = 0, _cur = new Date(_firstEntry.getFullYear(), _firstEntry.getMonth(), 1);
   while (_cur <= _axisEnd) { _tickCount++; _cur = new Date(_cur.getFullYear(), _cur.getMonth() + 1, 1); }
-  const minW = canvas.parentElement.clientWidth - 40;
+  const minW = (canvas.parentElement.clientWidth || 600) - 40;
   const W = Math.max(minW, _tickCount * 48 + 88);
   const H = 280;
   canvas.width  = W * dpr;
