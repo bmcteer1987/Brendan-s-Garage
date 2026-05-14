@@ -1130,7 +1130,7 @@
         <label id="receipt-upload-label" style="display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;cursor:pointer;font-size:13px;color:var(--text2);transition:border-color 0.15s;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <span id="receipt-label-text">Attach receipt...</span>
-          <input type="file" id="f-receipt" accept=".pdf,image/*" style="display:none;" onchange="previewReceipt(this)" />
+          <input type="file" id="f-receipt" accept=".pdf,image/*" style="display:none;" onchange="handleReceiptInput(this)" />
         </label>
         <div id="receipt-preview" style="display:none;margin-top:6px;font-size:12px;color:var(--green);display:flex;align-items:center;gap:6px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1484,7 +1484,7 @@ let _pendingReceiptFile = null; // raw File object for Storage upload
 let _pendingReceiptName = null;
 let _pendingReceiptType = null;
 
-function previewReceipt(input) {
+function handleReceiptInput(input) {
   const file = input.files[0];
   if (!file) return;
   if (file.size > 20 * 1024 * 1024) {
@@ -1530,16 +1530,31 @@ function previewReceipt(recordId) {
   const name  = document.getElementById('receipt-modal-name');
   name.textContent = r.receiptName || 'Receipt';
   body.innerHTML = '';
-  if (r.receiptType && r.receiptType.startsWith('image/')) {
+  // Detect type from stored type OR from URL extension as fallback
+  const ext = (r.receiptName || r.receipt || '').split('.').pop().toLowerCase();
+  const isImage = (r.receiptType && r.receiptType.startsWith('image/'))
+    || ['jpg','jpeg','png','gif','webp','heic'].includes(ext);
+  const isPdf = (r.receiptType === 'application/pdf') || ext === 'pdf';
+
+  if (isImage) {
     const img = document.createElement('img');
     img.src = r.receipt;
     img.alt = r.receiptName || 'Receipt';
+    img.onerror = () => {
+      body.innerHTML = '<div style="color:var(--text3);font-size:13px;text-align:center;">Could not load image.<br><a href="' + r.receipt + '" target="_blank" style="color:var(--bmw-blue);">Open in new tab</a></div>';
+    };
     body.appendChild(img);
+  } else if (isPdf) {
+    // PDFs: link out rather than iframe — cross-origin iframe often blocked
+    body.innerHTML = '<div style="text-align:center;padding:24px;">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color:var(--text3);display:block;margin:0 auto 16px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'
+      + '<div style="font-size:14px;color:var(--text);margin-bottom:8px;">' + (r.receiptName || 'Receipt.pdf') + '</div>'
+      + '<div style="font-size:12px;color:var(--text3);margin-bottom:16px;">PDF previews open in a new tab</div>'
+      + '<a href="' + r.receipt + '" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:var(--bmw-blue-dim);border:1px solid rgba(74,144,226,0.3);border-radius:var(--radius);padding:8px 18px;font-size:13px;color:var(--bmw-blue);text-decoration:none;">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
+      + 'Open PDF</a></div>';
   } else {
-    // PDF or unknown — use iframe
-    const iframe = document.createElement('iframe');
-    iframe.src = r.receipt;
-    body.appendChild(iframe);
+    body.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text3);font-size:13px;">Cannot preview this file type.<br><a href="' + r.receipt + '" target="_blank" style="color:var(--bmw-blue);">Open in new tab</a></div>';
   }
   modal.classList.add('open');
   // Close on backdrop click
